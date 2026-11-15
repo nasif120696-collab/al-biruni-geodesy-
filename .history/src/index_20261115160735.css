@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #07070c;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(168, 85, 247, 0.16) 0%, transparent 42%),
+    radial-gradient(circle at 86% 24%, rgba(249, 115, 22, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(56, 189, 248, 0.10) 0%, transparent 50%),
+    linear-gradient(180deg, #07070c 0%, #0b0d17 100%);
+  color: #f8fafc;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* AstroPlus-Inspired Tinted Glassmorphic Bento Cards */
+.astro-shell {
+  background: rgba(13, 14, 24, 0.78);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.kpi-tint-1 {
+  background: linear-gradient(145deg, rgba(30, 32, 44, 0.85), rgba(18, 19, 28, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kpi-tint-2 {
+  background: linear-gradient(145deg, rgba(64, 24, 54, 0.82), rgba(26, 14, 26, 0.9));
+  border: 1px solid rgba(232, 121, 249, 0.18);
+}
+
+.kpi-tint-3 {
+  background: linear-gradient(145deg, rgba(22, 34, 62, 0.85), rgba(14, 20, 36, 0.9));
+  border: 1px solid rgba(56, 189, 248, 0.18);
+}
+
+.kpi-tint-4 {
+  background: linear-gradient(145deg, rgba(62, 36, 20, 0.85), rgba(28, 18, 14, 0.9));
+  border: 1px solid rgba(251, 146, 60, 0.22);
+}
+
+.astro-card {
+  background: rgba(20, 22, 34, 0.78);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.astro-pill-btn {
+  background: linear-gradient(90deg, #ffb067 0%, #fb7185 100%);
+  color: #090a10;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(251, 113, 133, 0.35);
+}
+
+/* CSS Rotating Earth + Geodesic Glow */
+#earth {
+  width: 340px;
+  height: 340px;
+  background-color: #0c2d48;
+  background-image:
+    url('https://web.archive.org/web/20150807125159if_/http://www.noirextreme.com/digital/Earth-Color4096.jpg'),
+    radial-gradient(circle at 35% 35%, #2563eb 0%, #0f172a 75%);
+  border-radius: 50%;
+  background-size: 690px;
+  box-shadow:
+    inset 12px 38px 85px 38px rgba(0, 0, 0, 0.94),
+    inset -8px 0 16px 5px rgba(255, 190, 120, 0.35),
+    0 0 65px rgba(249, 115, 22, 0.22),
+    0 0 110px rgba(56, 189, 248, 0.16);
+  animation: rotateEarth 16s linear infinite;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  #earth {
+    width: 390px;
+    height: 390px;
+    background-size: 790px;
+  }
+}
+
+@keyframes rotateEarth {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 790px 0px;
+  }
+}
+
+.geodesic-mesh {
+  animation: meshFloat 9s ease-in-out infinite alternate;
+}
+
+@keyframes meshFloat {
+  from { transform: rotate(-4deg) scale(0.99); opacity: 0.72; }
+  to { transform: rotate(4deg) scale(1.02); opacity: 0.95; }
+}
+
+/* Clear Satellite Basemap Filter */
+.night-satellite-tiles {
+  filter: brightness(0.78) contrast(1.12) saturate(0.85);
+}
+
+.leaflet-container {
+  background: #07070c !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(13, 14, 24, 0.95) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(251, 146, 60, 0.35) !important;
+  border-radius: 14px !important;
+}
+
+/* 26-Year Calendar Cell */
+.cal-cell {
+  min-width: 40px;
+  height: 27px;
+  border-radius: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cal-cell:hover {
+  transform: scale(1.14);
+  z-index: 10;
+}
+
+.cal-anomaly {
+  border: 2px solid #fb7185 !important;
+  box-shadow: 0 0 12px rgba(251, 113, 133, 0.65);
+}
+
+.scroll-fade-item {
+  will-change: transform, opacity;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(251, 146, 60, 0.35);
+  border-radius: 9999px;
+}
