@@ -2,15 +2,8 @@
 
 Built for the **NASA Space Apps Challenge 2026** (*Harmonization of MODIS and VIIRS Hot Spots*).
 
-## Overview
-- **Raw Satellite Observations:** `21,414,156` detections across MODIS Collection 6.1 (1 km) and VIIRS C2 (375 m — Suomi-NPP, NOAA-20/J1, NOAA-21/J2) from `2025-11-14` to `2026-11-14`.
-- **Harmonized Wildfire Events:** `1,131,049` verified clusters using a **1.5 km spherical chord-distance** & **6-hour overpass window** (`94.7%` duplicate clutter cut, `173,642` cross-sensor confirmed)[cite: 21].
-- **26-Year Burning Calendar (2001–2026):** Sensor-calibrated Month × Year burning days across Bangladesh (Sundarbans & Croplands), California, Amazon, and Australia with `>2 SD` anomaly detection.
-
-## Setup & Run
-1. Copy `global_harmonized_2.json` into `public/global_harmonized_2.json`[cite: 21].
-2. Copy your team banner image into `public/banner.png`[cite: 20].
-3. Install dependencies and start the server:
-   ```bash
-   npm install
-   npm run dev
+## Features
+- **API-Key-Free Mapping:** Powered by Leaflet.js with OpenStreetMap HOT tiles and Esri World Imagery (Zero billing/key requirements).
+- **Cinematic Opening Gateway:** Al-Biruni Geodesy title with custom team logo (`banner.png`), rotating planet, drifting micro-rockets, and mode carousel.
+- **Apple visionOS Liquid Glass UI:** Frosted glassmorphism (`backdrop-filter: blur(28px) saturate(180%)`) and GSAP kinetic text reveals.
+- **Split-Screen Curtain Compare:** Real-time comparison between raw MODIS (1 km) + VIIRS (375 m) clutter and 1.5 km harmonized clusters (`21,414,156` raw -> `1,131,049` verified events).

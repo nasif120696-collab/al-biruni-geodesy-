@@ -4,12 +4,7 @@ const DataContext = createContext(null)
 
 const FALLBACK_DATA = {
   meta: { region: 'Global + Bangladesh', period: '2025-11-14 to 2026-11-14' },
-  stats: {
-    total_raw: 21414156,
-    harmonized_count: 1131049,
-    reduction_pct: 94.7,
-    cross_confirmed: 173642,
-  },
+  stats: { total_raw: 21414156, harmonized_count: 1131049, reduction_pct: 94.7, cross_confirmed: 173642 },
   modis_raw: [
     { latitude: 23.17, longitude: 92.45, frp: 99.3 },
     { latitude: 25.77, longitude: 89.85, frp: 81.2 },
@@ -37,8 +32,7 @@ export const REGIONAL_PRESETS = {
     alphaFactor: 1.36,
     monthlyBaseline: [8, 18, 34, 29, 11, 2, 1, 1, 2, 5, 9, 7],
     anomalies: { '2010-03': 68, '2016-04': 64, '2021-03': 74, '2024-04': 71, '2026-03': 66 },
-    summary:
-      'Fire activity peaks between February and April (pre-monsoon crop-residue clearing, Chittagong Hill Tracts, and Sundarbans dry spells) and drops near zero during the June–September monsoon. Crimson-outlined cells flag severe anomalies (>2 SD above normal).',
+    summary: 'Fire activity peaks between February and April (pre-monsoon crop-residue clearing, Chittagong Hill Tracts, and Sundarbans dry spells) and drops near zero during the June–September monsoon. Crimson-outlined cells flag severe anomalies (>2 SD above normal).',
   },
   california: {
     name: 'California & Western North America',
@@ -48,8 +42,7 @@ export const REGIONAL_PRESETS = {
     alphaFactor: 1.42,
     monthlyBaseline: [3, 4, 6, 9, 15, 28, 46, 58, 54, 41, 19, 5],
     anomalies: { '2008-07': 96, '2018-11': 84, '2020-08': 128, '2020-09': 134, '2026-07': 119 },
-    summary:
-      'Megafire intensity surges from July through October under hot, dry wind regimes. July–August 2026 and August–September 2020 stand out as extreme multi-standard-deviation anomalies.',
+    summary: 'Megafire intensity surges from July through October under hot, dry wind regimes. July–August 2026 and August–September 2020 stand out as extreme multi-standard-deviation anomalies.',
   },
   amazon: {
     name: 'Amazon Basin & Cerrado, South America',
@@ -59,8 +52,7 @@ export const REGIONAL_PRESETS = {
     alphaFactor: 1.39,
     monthlyBaseline: [12, 9, 8, 10, 18, 32, 55, 94, 118, 86, 44, 21],
     anomalies: { '2005-09': 195, '2010-08': 204, '2019-08': 188, '2024-09': 216, '2026-09': 198 },
-    summary:
-      'Burning accelerates sharply during the August–October dry season along the southern arc of deforestation, with drought years exceeding +2 SD above the 26-year baseline.',
+    summary: 'Burning accelerates sharply during the August–October dry season along the southern arc of deforestation, with drought years exceeding +2 SD above the 26-year baseline.',
   },
   australia: {
     name: 'Northern & Western Australia',
@@ -70,8 +62,7 @@ export const REGIONAL_PRESETS = {
     alphaFactor: 1.35,
     monthlyBaseline: [22, 16, 14, 19, 28, 38, 49, 68, 88, 95, 76, 42],
     anomalies: { '2011-09': 158, '2019-11': 182, '2019-12': 164, '2023-10': 169, '2026-01': 154 },
-    summary:
-      'Savanna and bushfire activity builds from August through January, with late 2019 ("Black Summer") and January 2026 severe heatwaves flagged above the +2 SD threshold.',
+    summary: 'Savanna and bushfire activity builds from August through January, with late 2019 ("Black Summer") and January 2026 severe heatwaves flagged above the +2 SD threshold.',
   },
 }
 
@@ -79,12 +70,7 @@ export function haversineKm(lat1, lon1, lat2, lon2) {
   const R = 6371.0
   const dLat = ((lat2 - lat1) * Math.PI) / 180
   const dLon = ((lon2 - lon1) * Math.PI) / 180
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
@@ -94,14 +80,8 @@ export function DataProvider({ children }) {
   useEffect(() => {
     let active = true
     Promise.any([
-      fetch('/global_harmonized_2.json').then((r) => {
-        if (!r.ok) throw new Error('not found')
-        return r.json()
-      }),
-      fetch('/global_harmonized.json').then((r) => {
-        if (!r.ok) throw new Error('not found')
-        return r.json()
-      }),
+      fetch('/global_harmonized_2.json').then((r) => { if (!r.ok) throw new Error('not found'); return r.json() }),
+      fetch('/global_harmonized.json').then((r) => { if (!r.ok) throw new Error('not found'); return r.json() }),
     ])
       .then((json) => {
         if (!active) return
@@ -114,23 +94,15 @@ export function DataProvider({ children }) {
         })
       })
       .catch(() => {})
-    return () => {
-      active = false
-    }
+    return () => { active = false }
   }, [])
 
   const live2026ByRegion = useMemo(() => {
-    const counts = {
-      bangladesh: new Array(12).fill(0),
-      california: new Array(12).fill(0),
-      amazon: new Array(12).fill(0),
-      australia: new Array(12).fill(0),
-    }
+    const counts = { bangladesh: new Array(12).fill(0), california: new Array(12).fill(0), amazon: new Array(12).fill(0), australia: new Array(12).fill(0) }
     ;(dataset.harmonized || []).forEach((pt) => {
       if (!pt.date || !pt.date.startsWith('2026-')) return
       const mIdx = parseInt(pt.date.slice(5, 7), 10) - 1
       if (mIdx < 0 || mIdx > 11) return
-
       if (pt.lat >= 20.5 && pt.lat <= 26.8 && pt.lon >= 88.0 && pt.lon <= 92.8) counts.bangladesh[mIdx]++
       if (pt.lat >= 32.0 && pt.lat <= 53.0 && pt.lon >= -126.0 && pt.lon <= -110.0) counts.california[mIdx]++
       if (pt.lat >= -18.0 && pt.lat <= 4.0 && pt.lon >= -72.0 && pt.lon <= -42.0) counts.amazon[mIdx]++
@@ -169,13 +141,7 @@ export function DataProvider({ children }) {
           harmonizedDays = year < 2012 ? Math.round(rawCount * preset.alphaFactor) : rawCount
         }
 
-        const sensorEra =
-          year === 2026 && live2026[m - 1] > 0
-            ? '2026 Live FIRMS Archive (MODIS + J1/J2/NPP VIIRS)'
-            : year < 2012
-            ? 'MODIS C6.1 (Overlap-Calibrated)'
-            : 'MODIS C6.1 + VIIRS C2'
-
+        const sensorEra = year === 2026 && live2026[m - 1] > 0 ? '2026 Live FIRMS Archive (MODIS + VIIRS)' : year < 2012 ? 'MODIS C6.1 (Overlap-Calibrated)' : 'MODIS C6.1 + VIIRS C2'
         allValues.push(harmonizedDays)
         months.push({ year, month: m, key, rawCount, harmonizedDays, sensorEra, isAnomaly: false, zScore: 0 })
       }
@@ -200,17 +166,7 @@ export function DataProvider({ children }) {
       })
     })
 
-    return {
-      preset,
-      rows,
-      stats: {
-        mean: mean.toFixed(1),
-        sd: sd.toFixed(1),
-        threshold: Math.round(threshold),
-        anomalyCount,
-        alphaFactor: preset.alphaFactor,
-      },
-    }
+    return { preset, rows, stats: { mean: mean.toFixed(1), sd: sd.toFixed(1), threshold: Math.round(threshold), anomalyCount, alphaFactor: preset.alphaFactor } }
   }
 
   return (
